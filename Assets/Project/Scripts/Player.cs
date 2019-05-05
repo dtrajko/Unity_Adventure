@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     public float movingVelocity = 10f;
-    public float jumpingVelocity = 6f;
+    public float jumpingVelocity = 8f;
     private Rigidbody playerRigidbody;
     private bool canJump = true;
     private Quaternion targetModelRotation;

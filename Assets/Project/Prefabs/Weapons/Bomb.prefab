@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e4f3478accc444d827807c855ff4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 2
+  duration: 3
   radius: 3
   explosionDuration: 0.4
   explosionModel: {fileID: 8625779185192357792}

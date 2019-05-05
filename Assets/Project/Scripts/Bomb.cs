@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public float duration = 2f;
+    public float duration = 3f;
     public float radius = 3f;
     public float explosionDuration = 0.4f;
     public GameObject explosionModel;
