@@ -5,13 +5,11 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public float speed = 500;
-    public float lifetime = 1f;
+    public float lifetime = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Arrow->Start()!");
-        // gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         GetComponent<Rigidbody>().AddForce(transform.forward * speed);
     }
 

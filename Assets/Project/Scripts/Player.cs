@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody>();
         targetModelRotation = Quaternion.Euler(0, 180, 0);
+        sword.gameObject.SetActive(false);
+        bow.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,9 +60,6 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 90, 0);
-            // model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.Euler(0, 270, 0), Time.deltaTime * rotatingSpeed);
-            // model.transform.localEulerAngles = new Vector3(0, 270, 0);
-            // transform.position += Vector3.right * 5f * Time.deltaTime;
         }
         if (Input.GetKey("left") || Input.GetKey("a"))
         {
@@ -70,9 +69,6 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 270, 0);
-            // model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.Euler(0, 90, 0), Time.deltaTime * rotatingSpeed);
-            // model.transform.localEulerAngles = new Vector3(0, 90, 0);
-            // transform.position += Vector3.left * 5f * Time.deltaTime;
         }
         if (Input.GetKey("up") || Input.GetKey("w"))
         {
@@ -82,9 +78,6 @@ public class Player : MonoBehaviour
                 movingVelocity
             );
             targetModelRotation = Quaternion.Euler(0, 0, 0);
-            // model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.Euler(0, 180, 0), Time.deltaTime * rotatingSpeed);
-            // model.transform.localEulerAngles = new Vector3(0, 180, 0);
-            // transform.position += Vector3.forward * 5f * Time.deltaTime;
         }
         if (Input.GetKey("down") || Input.GetKey("s"))
         {
@@ -94,9 +87,6 @@ public class Player : MonoBehaviour
                 -movingVelocity
             );
             targetModelRotation = Quaternion.Euler(0, 180, 0);
-            // model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * rotatingSpeed);
-            // model.transform.localEulerAngles = new Vector3(0, 0, 0);
-            // transform.position += Vector3.back * 5f * Time.deltaTime;
         }
         // Check for jumps
         if (canJump && Input.GetKeyDown("space"))
@@ -140,7 +130,6 @@ public class Player : MonoBehaviour
             Debug.Log("No more bombs left!");
             return;
         }
-        Debug.Log("Bomb thrown!");
         GameObject bombObject = Instantiate(bombPrefab);
         bombObject.transform.position = transform.position + model.transform.forward;
         Vector3 throwingDirection = (model.transform.forward + Vector3.up).normalized;

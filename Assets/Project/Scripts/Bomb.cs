@@ -37,7 +37,6 @@ public class Bomb : MonoBehaviour
     }
 
     private IEnumerator Explode() {
-        Debug.Log("Bomb->Explode()!");
         explosionModel.SetActive(true);
         yield return new WaitForSeconds(explosionDuration);
         Destroy(gameObject);

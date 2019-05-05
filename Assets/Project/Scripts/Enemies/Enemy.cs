@@ -15,9 +15,12 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider otherCollider) {
         if (otherCollider.GetComponent<Sword>() != null) {
-            Hit();
+            if (otherCollider.GetComponent<Sword>().IsAttacking) {
+                Hit();
+            }
         } else if (otherCollider.GetComponent<Arrow>() != null) {
             Hit();
+            Destroy(otherCollider.gameObject);
         }
     }
 
