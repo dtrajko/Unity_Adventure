@@ -18,6 +18,7 @@ public class ShootingEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        base.health = 20;
         rotationTimer = timeToRotate;
         shootingTimer = timeToShoot;
     }

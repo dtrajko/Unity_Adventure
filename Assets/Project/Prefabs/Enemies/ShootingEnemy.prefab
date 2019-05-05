@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447e87f2e2a712a44990b99929afe450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 20
   model: {fileID: 9157549493634648534}
   timeToRotate: 1
   rotationSpeed: 6
