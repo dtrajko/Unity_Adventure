@@ -11,17 +11,21 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     public float movingVelocity = 10f;
     public float jumpingVelocity = 8f;
-    private Rigidbody playerRigidbody;
-    private bool canJump = true;
-    private Quaternion targetModelRotation;
+    public float knockbackForce = 100f;
 
     [Header("Equipment")]
+    public int health = 20;
     public Sword sword;
     public Bow bow;
     public GameObject bombPrefab;
     public int bombAmount = 100;
     public int arrowAmount = 100;
     public float throwingSpeed = 200;
+
+    private Rigidbody playerRigidbody;
+    private bool canJump = true;
+    private Quaternion targetModelRotation;
+    private float knockbackTimer = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,12 @@ public class Player : MonoBehaviour
         }
 
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation, targetModelRotation, Time.deltaTime * rotatingSpeed);
+
+        if (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.deltaTime;
+        }
+        // else ProcessInput();
         ProcessInput();
     }
 
@@ -135,5 +145,30 @@ public class Player : MonoBehaviour
         Vector3 throwingDirection = (model.transform.forward + Vector3.up).normalized;
         bombObject.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed);
         bombAmount--;
+    }
+
+    void OnTriggerEnter(Collider otherCollider) {
+        // if (otherCollider.GetComponent<EnemyBullet>() != null) {
+        //     Hit((transform.position - otherCollider.transform.position).normalized);
+        // }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.GetComponent<Enemy>() != null) {
+            // Hit((transform.position - collision.transform.position));
+        }
+        if (collision.gameObject.GetComponent<EnemyBullet>() != null) {
+            Hit(transform.position - collision.transform.position);
+        }
+    }
+
+    private void Hit(Vector3 direction) {
+        Vector3 knockbackDirection = (direction + Vector3.up).normalized;
+        playerRigidbody.AddForce(knockbackDirection * knockbackForce);
+        knockbackTimer = 1f;
+        health--;
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 }

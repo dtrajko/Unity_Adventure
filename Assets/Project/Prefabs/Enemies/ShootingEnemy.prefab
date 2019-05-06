@@ -91,11 +91,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   model: {fileID: 9157549493634648534}
-  timeToRotate: 1
+  timeToRotate: 1.5
+  timeToShoot: 0.5
   rotationSpeed: 6
   bulletPrefab: {fileID: 4102857238933506372, guid: 91fd3319b95c3e84797b99229aedaf39,
     type: 3}
-  timeToShoot: 0.2
 --- !u!1 &9157549492096458591
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,9 +357,9 @@ MonoBehaviour:
   health: 1
   model: {fileID: 0}
   timeToRotate: 2
+  timeToShoot: 1
   rotationSpeed: 6
   bulletPrefab: {fileID: 0}
-  timeToShoot: 1
 --- !u!1 &9157549493634648534
 GameObject:
   m_ObjectHideFlags: 0

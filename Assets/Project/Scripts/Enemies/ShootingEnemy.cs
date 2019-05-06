@@ -5,11 +5,10 @@ using UnityEngine;
 public class ShootingEnemy : Enemy
 {
     public GameObject model;
-    public float timeToRotate = 1f;
+    public float timeToRotate = 1.5f;
+    public float timeToShoot = 0.5f;
     public float rotationSpeed = 6f;
     public GameObject bulletPrefab;
-    public float timeToShoot = 0.2f;
-
 
     private int targetAngle;
     private float rotationTimer;
