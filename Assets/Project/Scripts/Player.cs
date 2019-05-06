@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     public float knockbackForce = 100f;
 
     [Header("Equipment")]
-    public int health = 20;
+    public int healthInit = 20;
+    public int health;
     public Sword sword;
     public Bow bow;
     public GameObject bombPrefab;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = healthInit;
         playerRigidbody = GetComponent<Rigidbody>();
         targetModelRotation = Quaternion.Euler(0, 180, 0);
         sword.gameObject.SetActive(false);
@@ -102,7 +104,7 @@ public class Player : MonoBehaviour
         if (canJump && Input.GetKeyDown("space"))
         {
             // transform.position += Vector3.up * 100f * Time.deltaTime;
-            canJump = false;
+            canJump = true;
             // playerRigidbody.AddForce(0, jumpingVelocity, 0);
             playerRigidbody.velocity = new Vector3(
                 playerRigidbody.velocity.x,
@@ -150,6 +152,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter(Collider otherCollider) {
         // if (otherCollider.GetComponent<EnemyBullet>() != null) {
         //     Hit((transform.position - otherCollider.transform.position).normalized);
+        //     Destroy(otherCollider.gameObject);
         // }
     }
 

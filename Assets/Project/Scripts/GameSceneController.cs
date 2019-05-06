@@ -9,6 +9,7 @@ public class GameSceneController : MonoBehaviour
     public Player player;
 
     [Header("UI")]
+    public GameObject[] hearts;
     public Text healthText;
     public Text bombsText;
     public Text arrowsText;
@@ -22,13 +23,23 @@ public class GameSceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int playerHealth = player != null ? player.health : 0;
-        healthText.text = "Health: " + playerHealth.ToString();
-
-        int bombAmount = player != null ? player.bombAmount : 0;
-        bombsText.text = "Bombs: " + bombAmount.ToString();
-
-        int arrowAmount = player != null ? player.arrowAmount : 0;
-        arrowsText.text = "Arrows: " + arrowAmount.ToString();
+        if (player != null)
+        {
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                hearts[i].SetActive(i * (player.healthInit / hearts.Length) < player.health);
+            }
+            healthText.text = "Health: " + player.health.ToString();
+            bombsText.text = "Bombs: " + player.bombAmount.ToString();
+            arrowsText.text = "Arrows: " + player.arrowAmount.ToString();
+        } else {
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                hearts[i].SetActive(false);
+            }
+            healthText.text = "Health: 000";
+            bombsText.text = "Bombs: 000";
+            arrowsText.text = "Arrows: 000";
+        }
     }
 }
