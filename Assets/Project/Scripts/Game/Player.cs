@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         );
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
-            GetComponent<Rigidbody>().velocity = new Vector3(
+            playerRigidbody.velocity = new Vector3(
                 movingVelocity,
                 playerRigidbody.velocity.y,
                 playerRigidbody.velocity.z
@@ -150,15 +150,15 @@ public class Player : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider otherCollider) {
-        // if (otherCollider.GetComponent<EnemyBullet>() != null) {
-        //     Hit((transform.position - otherCollider.transform.position).normalized);
-        //     Destroy(otherCollider.gameObject);
-        // }
+        if (otherCollider.GetComponent<EnemyBullet>() != null) {
+            Hit((transform.position - otherCollider.transform.position).normalized);
+            Destroy(otherCollider.gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.GetComponent<Enemy>() != null) {
-            // Hit((transform.position - collision.transform.position));
+            Hit((transform.position - collision.transform.position));
         }
         if (collision.gameObject.GetComponent<EnemyBullet>() != null) {
             Hit(transform.position - collision.transform.position);
