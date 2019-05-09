@@ -12,7 +12,7 @@ public class StrongEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        base.health = 10;
+        base.health = 5;
     }
 
     // Update is called once per frame

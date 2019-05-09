@@ -8,6 +8,8 @@ public class ShootingEnemy : Enemy
     public float timeToRotate = 1.5f;
     public float timeToShoot = 0.5f;
     public float rotationSpeed = 6f;
+    public bool rotateClockwise = true;
+    public int startingAngle = 0;
     public GameObject bulletPrefab;
 
     private int targetAngle;
@@ -17,9 +19,12 @@ public class ShootingEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        base.health = 20;
+        base.health = 5;
         rotationTimer = timeToRotate;
         shootingTimer = timeToShoot;
+
+        targetAngle = startingAngle;
+        transform.localRotation = Quaternion.Euler(0, targetAngle, 0);
     }
 
     // Update is called once per frame
@@ -30,7 +35,7 @@ public class ShootingEnemy : Enemy
         if (rotationTimer <= 0f) {
             rotationTimer = timeToRotate;
 
-            targetAngle += 45;
+            targetAngle += rotateClockwise ? 90 : -90;
         }
 
         // Perform the enemy rotation

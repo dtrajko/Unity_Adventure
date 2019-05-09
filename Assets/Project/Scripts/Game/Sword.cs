@@ -13,10 +13,21 @@ public class Sword : MonoBehaviour
     private Quaternion targetRotation;
     private float cooldownTimer;
     private bool isAttacking;
+    private bool isEngaged;
 
-    public bool IsAttacking {
-        get {
+    public bool IsAttacking
+    {
+        get
+        {
             return isAttacking;
+        }
+    }
+
+    public bool IsEngaged
+    {
+        get
+        {
+            return isEngaged;
         }
     }
 
@@ -34,14 +45,14 @@ public class Sword : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
     }
     public void Attack() {
+        isEngaged = true;
         if (cooldownTimer > 0f) {
             return;
         }
-
         targetRotation = Quaternion.Euler(90, 0, 0);
         cooldownTimer = cooldownDuration;
-
         StartCoroutine(CooldownWait());
+        isEngaged = false;
     }
 
     private IEnumerator CooldownWait()
