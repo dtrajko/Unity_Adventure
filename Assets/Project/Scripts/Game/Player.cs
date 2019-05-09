@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,15 @@ public class Player : MonoBehaviour
     private bool canJump = true;
     private Quaternion targetModelRotation;
     private float knockbackTimer = 1f;
+    private bool justTeleported;
+
+    public bool JustTeleported {
+        get {
+            bool returnValue = justTeleported;
+            justTeleported = false;
+            return returnValue;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -174,4 +184,11 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Teleport(Vector3 target)
+    {
+        transform.position = target;
+        justTeleported = true;
+    }
+
 }
