@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     {
         health = healthInit;
         playerRigidbody = GetComponent<Rigidbody>();
-        targetModelRotation = Quaternion.Euler(0, 180, 0);
+        targetModelRotation = Quaternion.Euler(0, 0, 0);
         sword.gameObject.SetActive(false);
         bow.gameObject.SetActive(false);
     }
