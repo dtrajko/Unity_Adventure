@@ -7,11 +7,12 @@ public class Player : MonoBehaviour
 {
     [Header("Visuals")]
     public GameObject model;
+    public Animator playerAnimator;
     public float rotatingSpeed = 5f;
 
     [Header("Movement")]
     public float movingVelocity = 10f;
-    public float jumpingVelocity = 8f;
+    public float jumpingVelocity = 6f;
     public float knockbackForce = 100f;
 
     [Header("Equipment")]
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     private Quaternion targetModelRotation;
     private float knockbackTimer = 1f;
     private bool justTeleported;
+    private Vector3 originalPlayerAnimatorPosition;
 
     public bool JustTeleported {
         get {
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         targetModelRotation = Quaternion.Euler(0, 0, 0);
         sword.gameObject.SetActive(false);
         bow.gameObject.SetActive(false);
+        originalPlayerAnimatorPosition = playerAnimator.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -53,9 +56,14 @@ public class Player : MonoBehaviour
     {
         // Raycast to identify if the player can jump.
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.01f)) {
+        bool raycastResult = Physics.Raycast(transform.position, Vector3.down, out hit, 1.41f);
+        // Debug.Log("Player raycastResult: " + raycastResult);
+        if (raycastResult) {
             canJump = true;
         }
+
+        playerAnimator.SetBool("OnGround", raycastResult);
+        // Debug.Log("playerAnimator raycastResult: " + raycastResult  + " canJump: " + canJump);
 
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation, targetModelRotation, Time.deltaTime * rotatingSpeed);
 
@@ -67,6 +75,11 @@ public class Player : MonoBehaviour
         ProcessInput();
     }
 
+    void LateUpdate() {
+        // Keep the character animator's game object in place
+        playerAnimator.transform.localPosition = originalPlayerAnimatorPosition;
+    }
+
     void ProcessInput() {
         // Move in the XZ plane
         playerRigidbody.velocity = new Vector3(
@@ -74,6 +87,9 @@ public class Player : MonoBehaviour
             playerRigidbody.velocity.y,
             0
         );
+
+        bool isPlayerMoving = false;
+
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
             playerRigidbody.velocity = new Vector3(
@@ -82,6 +98,7 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 90, 0);
+            isPlayerMoving = true;
         }
         if (Input.GetKey("left") || Input.GetKey("a"))
         {
@@ -91,6 +108,7 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 270, 0);
+            isPlayerMoving = true;
         }
         if (Input.GetKey("up") || Input.GetKey("w"))
         {
@@ -100,6 +118,7 @@ public class Player : MonoBehaviour
                 movingVelocity
             );
             targetModelRotation = Quaternion.Euler(0, 0, 0);
+            isPlayerMoving = true;
         }
         if (Input.GetKey("down") || Input.GetKey("s"))
         {
@@ -109,7 +128,11 @@ public class Player : MonoBehaviour
                 -movingVelocity
             );
             targetModelRotation = Quaternion.Euler(0, 180, 0);
+            isPlayerMoving = true;
         }
+
+        playerAnimator.SetFloat("Forward", isPlayerMoving ? 1.0f : 0.0f);
+
         // Check for jumps
         if (canJump && Input.GetKeyDown("space"))
         {

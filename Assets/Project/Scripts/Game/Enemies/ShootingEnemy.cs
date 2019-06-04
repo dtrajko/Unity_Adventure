@@ -11,6 +11,8 @@ public class ShootingEnemy : Enemy
     public bool rotateClockwise = true;
     public int startingAngle = 0;
     public GameObject bulletPrefab;
+    public GameObject bulletSpawnPoint;
+    public float bulletHeightOffset = 1.8f;
 
     private int targetAngle;
     private float rotationTimer;
@@ -48,8 +50,9 @@ public class ShootingEnemy : Enemy
             shootingTimer = timeToShoot;
 
             GameObject bulletObject = Instantiate(bulletPrefab);
-            bulletObject.transform.position = transform.position + model.transform.forward * 4 + model.transform.up * 0.4f;
-            bulletObject.transform.forward = model.transform.forward;  
+            // bulletObject.transform.position = transform.position + model.transform.forward * 2 + Vector3.up * bulletHeightOffset;
+            bulletObject.transform.position = bulletSpawnPoint.transform.position;
+            bulletObject.transform.forward = model.transform.forward;
         }
     }
 }

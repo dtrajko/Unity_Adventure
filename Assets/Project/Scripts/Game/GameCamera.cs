@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     public Player player;
-    public Vector3 offset = new Vector3(0, 4, -8);
-    public float focusSpeed = 4f;
+    public Vector3 offset = new Vector3(0, 3, -10);
+    public float focusSpeed = 6f;
 
     // Start is called before the first frame update
     void Start()
