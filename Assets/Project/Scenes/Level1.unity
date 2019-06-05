@@ -709,7 +709,7 @@ MonoBehaviour:
   bombAmount: 100
   arrowAmount: 100
   throwingSpeed: 200
-  isRunningTowardsCamera: 0
+  distanceFromCamera: 0
 --- !u!54 &73246315
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -967,7 +967,6 @@ Transform:
   - {fileID: 1981939724}
   - {fileID: 1977916805}
   - {fileID: 1874172730}
-  - {fileID: 559748283}
   m_Father: {fileID: 73246313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2494,19 +2493,19 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 107595686}
+    m_TransformParent: {fileID: 1977916805}
     m_Modifications:
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: 0.6588249
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.849
+      value: 0.15099996
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.199
+      value: -0.7449994
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2526,11 +2525,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalScale.x
-      value: 17.100132
+      value: 17.100124
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d2eb838c1f804133af0842ae7c30453, type: 3}
       propertyPath: m_LocalScale.y
@@ -7703,6 +7702,7 @@ Transform:
   m_Children:
   - {fileID: 1363308966}
   - {fileID: 1814914596}
+  - {fileID: 559748283}
   m_Father: {fileID: 107595686}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7764,8 +7764,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06869984, y: 1.2728977, z: 0.2733879}
-  m_Center: {x: 0, y: 0.6143236, z: 0}
+  m_Size: {x: 0.12414265, y: 1.1812372, z: 0.36680508}
+  m_Center: {x: 0.37241793, y: 0.8358302, z: 0.10516977}
 --- !u!114 &1981939726
 MonoBehaviour:
   m_ObjectHideFlags: 0
