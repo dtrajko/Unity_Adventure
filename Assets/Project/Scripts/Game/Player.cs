@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     private bool justTeleported;
     private Vector3 originalAnimatorPosition;
 
+    public float distanceFromCamera = 0.0f;
+
     public bool JustTeleported {
         get {
             bool returnValue = justTeleported;
@@ -89,6 +91,8 @@ public class Player : MonoBehaviour
         );
 
         bool isPlayerMoving = false;
+        distanceFromCamera = 0.0f;
+        float diagonalAdjustment = 0f;
 
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
@@ -98,6 +102,7 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 90, 0);
+            diagonalAdjustment = 45f;
             isPlayerMoving = true;
         }
         if (Input.GetKey("left") || Input.GetKey("a"))
@@ -108,6 +113,7 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.z
             );
             targetModelRotation = Quaternion.Euler(0, 270, 0);
+            diagonalAdjustment = -45f;
             isPlayerMoving = true;
         }
         if (Input.GetKey("up") || Input.GetKey("w"))
@@ -117,8 +123,9 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.y,
                 movingVelocity
             );
-            targetModelRotation = Quaternion.Euler(0, 0, 0);
+            targetModelRotation = Quaternion.Euler(0, 0 + diagonalAdjustment, 0);
             isPlayerMoving = true;
+            distanceFromCamera = 0.3f;
         }
         if (Input.GetKey("down") || Input.GetKey("s"))
         {
@@ -127,8 +134,9 @@ public class Player : MonoBehaviour
                 playerRigidbody.velocity.y,
                 -movingVelocity
             );
-            targetModelRotation = Quaternion.Euler(0, 180, 0);
+            targetModelRotation = Quaternion.Euler(0, 180 - diagonalAdjustment, 0);
             isPlayerMoving = true;
+            distanceFromCamera = -1.2f;
         }
 
         playerAnimator.SetFloat("Forward", isPlayerMoving ? 1.0f : 0.0f);

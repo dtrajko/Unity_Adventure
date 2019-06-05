@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     public Player player;
-    public Vector3 offset = new Vector3(0, 3, -10);
+    public Vector3 offset = new Vector3(0f, 2f, -5f);
     public float focusSpeed = 6f;
 
     // Start is called before the first frame update
@@ -18,10 +18,14 @@ public class GameCamera : MonoBehaviour
     void Update()
     {
         if (player != null) {
-            transform.position = Vector3.Lerp(transform.position, transform.position = player.transform.position + offset, Time.deltaTime * focusSpeed);
+
+            Vector3 offsetFinal = offset;
+            offsetFinal.z += player.distanceFromCamera;
+
+            transform.position = Vector3.Lerp(transform.position, transform.position = player.transform.position + offsetFinal, Time.deltaTime * focusSpeed);
 
             if (player.JustTeleported) {
-                transform.position = player.transform.position + offset;
+                transform.position = player.transform.position + offsetFinal;
             }
         }
     }
