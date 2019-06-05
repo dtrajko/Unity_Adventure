@@ -11,7 +11,6 @@ public class PatrollingLogic : MonoBehaviour
 
     private int directionPointer;
     private float directionTimer;
-    private int targetRotation;
 
     /*  0      1     2     3
      * Up, right, down, left
@@ -35,6 +34,8 @@ public class PatrollingLogic : MonoBehaviour
                 directionPointer = 0;
             }
         }
+
+        model.transform.forward = directions[directionPointer];
 
         // Make the object move
         GetComponent<Rigidbody>().velocity = new Vector3(
