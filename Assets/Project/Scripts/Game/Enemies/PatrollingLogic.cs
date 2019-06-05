@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PatrollingLogic : MonoBehaviour
 {
+    public GameObject model;
     public Vector3[] directions;
     public float timeToChange = 1f;
     public float movementSpeed;
 
     private int directionPointer;
     private float directionTimer;
+    private int targetRotation;
 
     /*  0      1     2     3
      * Up, right, down, left

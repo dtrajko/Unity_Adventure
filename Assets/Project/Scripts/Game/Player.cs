@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     private Quaternion targetModelRotation;
     private float knockbackTimer = 1f;
     private bool justTeleported;
-    private Vector3 originalPlayerAnimatorPosition;
+    private Vector3 originalAnimatorPosition;
 
     public bool JustTeleported {
         get {
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         targetModelRotation = Quaternion.Euler(0, 0, 0);
         sword.gameObject.SetActive(false);
         bow.gameObject.SetActive(false);
-        originalPlayerAnimatorPosition = playerAnimator.transform.localPosition;
+        originalAnimatorPosition = playerAnimator.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
 
     void LateUpdate() {
         // Keep the character animator's game object in place
-        playerAnimator.transform.localPosition = originalPlayerAnimatorPosition;
+        playerAnimator.transform.localPosition = originalAnimatorPosition;
     }
 
     void ProcessInput() {
