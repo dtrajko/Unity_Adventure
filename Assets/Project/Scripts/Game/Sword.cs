@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    public Vector3 defaultAngle;
+    public Vector3 attackAngle;
+    public Vector3 runningAngle;
+
+    public GameObject playerModel;
+
     public float swingingSpeed = 16f;
     public float cooldownSpeed = 8f;
     public float attackDuration = 0.4f;
     public float cooldownDuration = 0.4f;
 
-    private Quaternion targetRotation;
+    public Quaternion targetRotation;
     private float cooldownTimer;
     private bool isAttacking;
     private bool isEngaged;
@@ -34,7 +40,7 @@ public class Sword : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetRotation = Quaternion.Euler(0, 0, 0);
+        targetRotation = Quaternion.Euler(defaultAngle);
         GetComponent<BoxCollider>().isTrigger = false;
     }
 
@@ -49,7 +55,7 @@ public class Sword : MonoBehaviour
         if (cooldownTimer > 0f) {
             return;
         }
-        targetRotation = Quaternion.Euler(90, 0, 0);
+        targetRotation = Quaternion.Euler(attackAngle);
         cooldownTimer = cooldownDuration;
         StartCoroutine(CooldownWait());
         isEngaged = false;
@@ -62,6 +68,6 @@ public class Sword : MonoBehaviour
         yield return new WaitForSeconds(attackDuration);
         isAttacking = false;
         GetComponent<BoxCollider>().isTrigger = false;
-        targetRotation = Quaternion.Euler(0, 0, 0);
+        targetRotation = Quaternion.Euler(defaultAngle);
     }
 }

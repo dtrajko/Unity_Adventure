@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public int health;
     public Sword sword;
     public Bow bow;
+    public GameObject quiver;
     public GameObject bombPrefab;
     public int bombAmount = 100;
     public int arrowAmount = 100;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
         targetModelRotation = Quaternion.Euler(0, 0, 0);
         sword.gameObject.SetActive(false);
         bow.gameObject.SetActive(false);
+        quiver.gameObject.SetActive(false);
         originalAnimatorPosition = playerAnimator.transform.localPosition;
     }
 
@@ -141,6 +143,13 @@ public class Player : MonoBehaviour
 
         playerAnimator.SetFloat("Forward", isPlayerMoving ? 1.0f : 0.0f);
 
+        if (isPlayerMoving) {
+            sword.targetRotation = Quaternion.Euler(sword.runningAngle);
+        }
+        else {
+            sword.targetRotation = Quaternion.Euler(sword.defaultAngle);
+        }
+
         // Check for jumps
         if (canJump && Input.GetKeyDown("space"))
         {
@@ -158,6 +167,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             sword.gameObject.SetActive(true);
             bow.gameObject.SetActive(false);
+            quiver.gameObject.SetActive(false);
             sword.Attack();
         }
 
@@ -166,6 +176,7 @@ public class Player : MonoBehaviour
             if (arrowAmount > 0) {
                 sword.gameObject.SetActive(false);
                 bow.gameObject.SetActive(true);
+                quiver.gameObject.SetActive(true);
                 bow.Attack();
                 arrowAmount--;
             }
