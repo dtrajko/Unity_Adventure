@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private float knockbackTimer = 1f;
     private bool justTeleported;
     private Vector3 originalAnimatorPosition;
+    private Dungeon currentDungeon;
 
     public float distanceFromCamera = 0.0f;
 
@@ -40,6 +41,12 @@ public class Player : MonoBehaviour
             bool returnValue = justTeleported;
             justTeleported = false;
             return returnValue;
+        }
+    }
+
+    public Dungeon CurrentDungeon {
+        get {
+            return currentDungeon;
         }
     }
 
@@ -208,9 +215,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider otherCollider) {
+        if (otherCollider.GetComponent<Dungeon>() != null) {
+            currentDungeon = otherCollider.GetComponent<Dungeon>();
+        }
+    }
+
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.GetComponent<Enemy>() != null) {
-            Hit((transform.position - collision.transform.position));
+        if (collision.gameObject.GetComponent<Enemy>()) {
+            Hit((transform.position - collision.transform.position).normalized);
         }
         if (collision.gameObject.GetComponent<EnemyBullet>() != null) {
             Hit(transform.position - collision.transform.position);

@@ -19,30 +19,17 @@ public class Sword : MonoBehaviour
     public Quaternion targetRotation;
     private float cooldownTimer;
     private bool isAttacking;
-    private bool isEngaged;
     private bool justAttacked;
 
-    public bool IsAttacking
-    {
-        get
-        {
+    public bool IsAttacking {
+        get {
             return isAttacking;
         }
     }
 
-    public bool JustAttacked
-    {
-        get
-        {
+    public bool JustAttacked {
+        get {
             return justAttacked;
-        }
-    }
-
-    public bool IsEngaged
-    {
-        get
-        {
-            return isEngaged;
         }
     }
 
@@ -50,7 +37,6 @@ public class Sword : MonoBehaviour
     void Start()
     {
         targetRotation = Quaternion.Euler(defaultAngle);
-        GetComponent<BoxCollider>().isTrigger = false;
     }
 
     // Update is called once per frame
@@ -60,14 +46,12 @@ public class Sword : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
     }
     public void Attack() {
-        isEngaged = true;
         if (cooldownTimer > 0f) {
             return;
         }
         targetRotation = Quaternion.Euler(attackAngle);
         cooldownTimer = cooldownDuration;
         StartCoroutine(CooldownWait());
-        isEngaged = false;
     }
 
     private IEnumerator CooldownWait()
@@ -76,16 +60,13 @@ public class Sword : MonoBehaviour
         justAttacked = true;
 
         yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         justAttacked = false;
-
-        // GetComponent<BoxCollider>().isTrigger = true;
 
         yield return new WaitForSeconds(attackDuration);
 
         isAttacking = false;
-
-        // GetComponent<BoxCollider>().isTrigger = false;
 
         targetRotation = Quaternion.Euler(defaultAngle);
     }

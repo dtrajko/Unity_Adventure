@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
         health--;
         if (health <= 0) {
             Destroy(gameObject);
+        } else {
         }
     }
 
@@ -21,10 +22,9 @@ public class Enemy : MonoBehaviour
     }
 
     public void OnTriggerStay(Collider otherCollider) {
-        if (otherCollider.GetComponent<Sword>() != null)
-        {
-            if (otherCollider.GetComponent<Sword>().JustAttacked)
-            {
+        if (otherCollider.GetComponent<Sword>() != null) {
+            if (otherCollider.GetComponent<Sword>().JustAttacked) {
+                // Debug.Log("Enemy hit by the sword!");
                 Hit();
             }
         }

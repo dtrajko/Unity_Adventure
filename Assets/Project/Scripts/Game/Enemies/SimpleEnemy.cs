@@ -24,7 +24,9 @@ public class SimpleEnemy : Enemy
     void LateUpdate()
     {
         // Keep the character animator's game object in place
-        enemyAnimator.transform.localPosition = originalAnimatorPosition;
+        if (enemyAnimator) {
+            enemyAnimator.transform.localPosition = originalAnimatorPosition;
+        }
     }
 
     // Update is called once per frame
