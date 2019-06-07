@@ -84,6 +84,8 @@ public class Player : MonoBehaviour
         }
         // else ProcessInput();
         ProcessInput();
+
+        Debug.Log("currentDungeon: " + currentDungeon);
     }
 
     void LateUpdate() {
@@ -218,6 +220,17 @@ public class Player : MonoBehaviour
     void OnTriggerStay(Collider otherCollider) {
         if (otherCollider.GetComponent<Dungeon>() != null) {
             currentDungeon = otherCollider.GetComponent<Dungeon>();
+        }
+    }
+
+    void OnTriggerExit(Collider otherCollider)
+    {
+        if (otherCollider.GetComponent<Dungeon>() != null)
+        {
+            Dungeon exitDungeon = otherCollider.GetComponent<Dungeon>();
+            if (exitDungeon == currentDungeon) {
+                currentDungeon = null;
+            }
         }
     }
 

@@ -5,7 +5,20 @@ using UnityEngine;
 public class Dungeon : MonoBehaviour
 {
     private int enemyCount;
+    private int currentEnemyCount;
     private Enemy[] enemies;
+
+    public int EnemyCount {
+        get {
+            return enemyCount;
+        }
+    }
+
+    public int CurrentEnemyCount {
+        get {
+            return currentEnemyCount;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +31,7 @@ public class Dungeon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int currentEnemyCount = 0;
+        currentEnemyCount = 0;
         foreach (Enemy enemy in enemies) {
             if (enemy != null) {
                 currentEnemyCount++;

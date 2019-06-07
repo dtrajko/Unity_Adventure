@@ -13,6 +13,8 @@ public class GameSceneController : MonoBehaviour
     public Text healthText;
     public Text bombsText;
     public Text arrowsText;
+    public GameObject dungeonPanel;
+    public Text dungeonInfoText;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class GameSceneController : MonoBehaviour
     {
         if (player != null)
         {
+            // Check for player information
             for (int i = 0; i < hearts.Length; i++)
             {
                 hearts[i].SetActive(i * (player.healthInit / hearts.Length) < player.health);
@@ -32,6 +35,23 @@ public class GameSceneController : MonoBehaviour
             healthText.text = "Health: " + player.health.ToString();
             bombsText.text = "Bombs: " + player.bombAmount.ToString();
             arrowsText.text = "Arrows: " + player.arrowAmount.ToString();
+
+            // Check for dungeon information
+            Dungeon currentDungeon = player.CurrentDungeon;
+            if (currentDungeon != null)
+            {
+                dungeonPanel.SetActive(true);
+                float clearPercentage = (float) (currentDungeon.EnemyCount - currentDungeon.CurrentEnemyCount) / (float) currentDungeon.EnemyCount;
+                clearPercentage = Mathf.Floor(clearPercentage * 100);
+                dungeonInfoText.text  = "Dungeon: " + currentDungeon.name;
+                dungeonInfoText.text += " Enemies: " + currentDungeon.CurrentEnemyCount + "/" + currentDungeon.EnemyCount;
+                dungeonInfoText.text += " [ " + clearPercentage + "% ]";
+            }
+            else {
+                dungeonPanel.SetActive(false);
+            }
+            
+
         } else {
             for (int i = 0; i < hearts.Length; i++)
             {
@@ -41,5 +61,6 @@ public class GameSceneController : MonoBehaviour
             bombsText.text = "Bombs: 000";
             arrowsText.text = "Arrows: 000";
         }
+
     }
 }
