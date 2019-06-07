@@ -221,9 +221,7 @@ public class Player : MonoBehaviour
         Vector3 knockbackDirection = (direction + Vector3.up).normalized;
         playerRigidbody.AddForce(knockbackDirection * knockbackForce);
         knockbackTimer = 1f;
-        if (!sword.IsEngaged) {
-            health--;
-        }
+        health--;
         if (health <= 0) {
             Destroy(gameObject);
         }

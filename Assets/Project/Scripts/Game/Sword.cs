@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    public Vector3 defaultAngle;
-    public Vector3 attackAngle;
-    public Vector3 runningAngle;
+    public Vector3 defaultAngle = new Vector3(100, 70, -20);
+    public Vector3 attackAngle = new Vector3(180, 70, -20);
+    public Vector3 runningAngle = new Vector3(100, 70, -20);
 
     public GameObject playerModel;
 
@@ -20,12 +20,21 @@ public class Sword : MonoBehaviour
     private float cooldownTimer;
     private bool isAttacking;
     private bool isEngaged;
+    private bool justAttacked;
 
     public bool IsAttacking
     {
         get
         {
             return isAttacking;
+        }
+    }
+
+    public bool JustAttacked
+    {
+        get
+        {
+            return justAttacked;
         }
     }
 
@@ -64,10 +73,20 @@ public class Sword : MonoBehaviour
     private IEnumerator CooldownWait()
     {
         isAttacking = true;
-        GetComponent<BoxCollider>().isTrigger = true;
+        justAttacked = true;
+
+        yield return new WaitForEndOfFrame();
+
+        justAttacked = false;
+
+        // GetComponent<BoxCollider>().isTrigger = true;
+
         yield return new WaitForSeconds(attackDuration);
+
         isAttacking = false;
-        GetComponent<BoxCollider>().isTrigger = false;
+
+        // GetComponent<BoxCollider>().isTrigger = false;
+
         targetRotation = Quaternion.Euler(defaultAngle);
     }
 }

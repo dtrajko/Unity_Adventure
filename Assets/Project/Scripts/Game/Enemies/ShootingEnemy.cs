@@ -51,6 +51,7 @@ public class ShootingEnemy : Enemy
 
             GameObject bulletObject = Instantiate(bulletPrefab);
             // bulletObject.transform.position = transform.position + model.transform.forward * 2 + Vector3.up * bulletHeightOffset;
+            bulletObject.transform.SetParent(transform.parent);
             bulletObject.transform.position = bulletSpawnPoint.transform.position;
             bulletObject.transform.forward = model.transform.forward;
         }

@@ -14,13 +14,19 @@ public class Enemy : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider otherCollider) {
-        if (otherCollider.GetComponent<Sword>() != null) {
-            if (otherCollider.GetComponent<Sword>().IsAttacking) {
-                Hit();
-            }
-        } else if (otherCollider.GetComponent<Arrow>() != null) {
+        if (otherCollider.GetComponent<Arrow>() != null) {
             Hit();
             Destroy(otherCollider.gameObject);
+        }
+    }
+
+    public void OnTriggerStay(Collider otherCollider) {
+        if (otherCollider.GetComponent<Sword>() != null)
+        {
+            if (otherCollider.GetComponent<Sword>().JustAttacked)
+            {
+                Hit();
+            }
         }
     }
 
