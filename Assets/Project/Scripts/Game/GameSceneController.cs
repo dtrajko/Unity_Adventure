@@ -7,6 +7,7 @@ public class GameSceneController : MonoBehaviour
 {
     [Header("Game")]
     public Player player;
+    public GameCamera gameCamera;
 
     [Header("UI")]
     public GameObject[] hearts;
@@ -46,6 +47,10 @@ public class GameSceneController : MonoBehaviour
                 dungeonInfoText.text  = "Dungeon: " + currentDungeon.name;
                 dungeonInfoText.text += " Enemies: " + currentDungeon.CurrentEnemyCount + "/" + currentDungeon.EnemyCount;
                 dungeonInfoText.text += " [ " + clearPercentage + "% ]";
+
+                if (currentDungeon.JustCleared) {
+                    gameCamera.FocusOn(currentDungeon.Treasure.gameObject);
+                }
             }
             else {
                 dungeonPanel.SetActive(false);
@@ -61,6 +66,5 @@ public class GameSceneController : MonoBehaviour
             bombsText.text = "Bombs: 000";
             arrowsText.text = "Arrows: 000";
         }
-
     }
 }

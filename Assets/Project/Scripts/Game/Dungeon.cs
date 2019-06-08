@@ -7,6 +7,9 @@ public class Dungeon : MonoBehaviour
     private int enemyCount;
     private int currentEnemyCount;
     private Enemy[] enemies;
+    private Treasure treasure;
+    private bool isClear;
+    private bool justCleared;
 
     public int EnemyCount {
         get {
@@ -20,11 +23,28 @@ public class Dungeon : MonoBehaviour
         }
     }
 
+    public bool JustCleared {
+        get {
+            bool returnValue = justCleared;
+            justCleared = false;
+            return returnValue;
+        }
+    }
+
+    public Treasure Treasure {
+        get {
+            return treasure;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         enemies = GetComponentsInChildren<Enemy>();
         enemyCount = enemies.Length;
+        treasure = GetComponentInChildren<Treasure>();
+        isClear = false;
+        // treasure.gameObject.SetActive(false);
         // Debug.Log(enemyCount);
     }
 
@@ -37,6 +57,16 @@ public class Dungeon : MonoBehaviour
                 currentEnemyCount++;
             }
         }
+
+        if (isClear == false) {
+            if (currentEnemyCount == 0) {
+                isClear = true;
+                justCleared = true;
+            }
+        }
+
+        treasure.gameObject.SetActive(isClear);
+
         // Debug.Log(currentEnemyCount + "/" + enemyCount);
     }
 }

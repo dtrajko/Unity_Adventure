@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         // else ProcessInput();
         ProcessInput();
 
-        Debug.Log("currentDungeon: " + currentDungeon);
+        // Debug.Log("currentDungeon: " + currentDungeon);
     }
 
     void LateUpdate() {
