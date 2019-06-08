@@ -76,13 +76,11 @@ public class Player : MonoBehaviour
         // Raycast to identify if the player can jump.
         RaycastHit hit;
         bool raycastResult = Physics.Raycast(transform.position, Vector3.down, out hit, 1.41f);
-        // Debug.Log("Player raycastResult: " + raycastResult);
         if (raycastResult) {
             canJump = true;
         }
 
         playerAnimator.SetBool("OnGround", raycastResult);
-        // Debug.Log("playerAnimator raycastResult: " + raycastResult  + " canJump: " + canJump);
 
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation, targetModelRotation, Time.deltaTime * rotatingSpeed);
 
@@ -90,10 +88,7 @@ public class Player : MonoBehaviour
         {
             knockbackTimer -= Time.deltaTime;
         }
-        // else ProcessInput();
         ProcessInput();
-
-        // Debug.Log("currentDungeon: " + currentDungeon);
     }
 
     void LateUpdate() {

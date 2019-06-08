@@ -22,10 +22,9 @@ public class GameCamera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (temporaryTarget != null) {
-            // Debug.Log("GameCamera focusing on Temporary target - Treasure!");
             transform.position = Vector3.Lerp(transform.position, temporaryTarget.transform.position + targetOffset, Time.deltaTime * focusSpeed);
 
             transform.localEulerAngles = new Vector3(
@@ -41,7 +40,6 @@ public class GameCamera : MonoBehaviour
                 Player player = target.GetComponent<Player>();
 
                 Vector3 playerTargetPosition = player.transform.position + Vector3.up * playerFocusHeight + player.model.transform.forward * playerFocusDepth;
-                // Debug.Log("GameCamera focusing on main target - Player!");
                 transform.position = Vector3.Lerp(transform.position, playerTargetPosition, Time.deltaTime * focusSpeed);
                 if (player.JustTeleported)
                 {
@@ -66,12 +64,10 @@ public class GameCamera : MonoBehaviour
     public void FocusOn(GameObject target) {
         temporaryTarget = target;
         StartCoroutine(FocusOnRoutine());
-        // Debug.Log("GameCamera::FocusOn() is complete!");
     }
 
     private IEnumerator FocusOnRoutine() {
         yield return new WaitForSeconds(temporaryFocusTime);
-        // Debug.Log("GameCamera::FocusOnRoutine() temporaryTarget = null");
         temporaryTarget = null;
     }
 }
