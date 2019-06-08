@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public float movingVelocity = 10f;
     public float jumpingVelocity = 6f;
     public float knockbackForce = 100f;
+    public float playerRotatingSpeed = 400f;
 
     [Header("Equipment")]
     public int healthInit = 20;
@@ -34,8 +35,6 @@ public class Player : MonoBehaviour
     private bool justTeleported;
     private Vector3 originalAnimatorPosition;
     private Dungeon currentDungeon;
-
-    public float distanceFromCamera = 0.0f;
 
     public bool JustTeleported {
         get {
@@ -67,7 +66,7 @@ public class Player : MonoBehaviour
         targetModelRotation = Quaternion.Euler(0, 0, 0);
         sword.gameObject.SetActive(false);
         bow.gameObject.SetActive(false);
-        quiver.gameObject.SetActive(false);
+        // quiver.gameObject.SetActive(false);
         originalAnimatorPosition = playerAnimator.transform.localPosition;
     }
 
@@ -111,52 +110,40 @@ public class Player : MonoBehaviour
         );
 
         bool isPlayerMoving = false;
-        distanceFromCamera = 0.0f;
-        float diagonalAdjustment = 0f;
 
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
-            playerRigidbody.velocity = new Vector3(
-                movingVelocity,
-                playerRigidbody.velocity.y,
-                playerRigidbody.velocity.z
+            targetModelRotation = Quaternion.Euler(
+                0,
+                model.transform.localEulerAngles.y + playerRotatingSpeed * Time.deltaTime,
+                0
             );
-            targetModelRotation = Quaternion.Euler(0, 90, 0);
-            diagonalAdjustment = 45f;
-            isPlayerMoving = true;
         }
         if (Input.GetKey("left") || Input.GetKey("a"))
         {
-            playerRigidbody.velocity = new Vector3(
-                -movingVelocity,
-                playerRigidbody.velocity.y,
-                playerRigidbody.velocity.z
+            targetModelRotation = Quaternion.Euler(
+                0,
+                model.transform.localEulerAngles.y - playerRotatingSpeed * Time.deltaTime,
+                0
             );
-            targetModelRotation = Quaternion.Euler(0, 270, 0);
-            diagonalAdjustment = -45f;
-            isPlayerMoving = true;
         }
         if (Input.GetKey("up") || Input.GetKey("w"))
         {
             playerRigidbody.velocity = new Vector3(
-                playerRigidbody.velocity.x,
+                model.transform.forward.x * movingVelocity,
                 playerRigidbody.velocity.y,
-                movingVelocity
+                model.transform.forward.z * movingVelocity
             );
-            targetModelRotation = Quaternion.Euler(0, 0 + diagonalAdjustment, 0);
             isPlayerMoving = true;
-            distanceFromCamera = 0.3f;
         }
         if (Input.GetKey("down") || Input.GetKey("s"))
         {
             playerRigidbody.velocity = new Vector3(
-                playerRigidbody.velocity.x,
+                -model.transform.forward.x * movingVelocity,
                 playerRigidbody.velocity.y,
-                -movingVelocity
+                -model.transform.forward.z * movingVelocity
             );
-            targetModelRotation = Quaternion.Euler(0, 180 - diagonalAdjustment, 0);
             isPlayerMoving = true;
-            distanceFromCamera = -1.2f;
         }
 
         playerAnimator.SetFloat("Forward", isPlayerMoving ? 1.0f : 0.0f);
@@ -185,7 +172,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             sword.gameObject.SetActive(true);
             bow.gameObject.SetActive(false);
-            quiver.gameObject.SetActive(false);
+            // quiver.gameObject.SetActive(false);
             sword.Attack();
         }
 
