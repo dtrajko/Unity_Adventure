@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public int bombAmount = 100;
     public int arrowAmount = 100;
     public float throwingSpeed = 200;
+    public int orbAmount = 0;
 
     private Rigidbody playerRigidbody;
     private bool canJump = true;
@@ -221,6 +222,9 @@ public class Player : MonoBehaviour
     void OnTriggerEnter(Collider otherCollider) {
         if (otherCollider.GetComponent<EnemyBullet>() != null) {
             Hit((transform.position - otherCollider.transform.position).normalized);
+            Destroy(otherCollider.gameObject);
+        } else if (otherCollider.GetComponent<Treasure>() != null) {
+            orbAmount++;
             Destroy(otherCollider.gameObject);
         }
     }

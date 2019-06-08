@@ -65,7 +65,9 @@ public class Dungeon : MonoBehaviour
             }
         }
 
-        treasure.gameObject.SetActive(isClear);
+        if (treasure != null) {
+            treasure.gameObject.SetActive(isClear);
+        }
 
         // Debug.Log(currentEnemyCount + "/" + enemyCount);
     }

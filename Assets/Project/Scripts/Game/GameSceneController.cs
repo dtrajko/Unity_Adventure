@@ -12,6 +12,7 @@ public class GameSceneController : MonoBehaviour
     [Header("UI")]
     public GameObject[] hearts;
     public Text healthText;
+    public Text orbText;
     public Text bombsText;
     public Text arrowsText;
     public GameObject dungeonPanel;
@@ -34,6 +35,7 @@ public class GameSceneController : MonoBehaviour
                 hearts[i].SetActive(i * (player.healthInit / hearts.Length) < player.health);
             }
             healthText.text = "Health: " + player.health.ToString();
+            orbText.text = "Orbs: " + player.orbAmount.ToString();
             bombsText.text = "Bombs: " + player.bombAmount.ToString();
             arrowsText.text = "Arrows: " + player.arrowAmount.ToString();
 
