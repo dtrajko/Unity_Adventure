@@ -15,7 +15,7 @@ public class SimpleEnemy : Enemy
     // Start is called before the first frame update
     void Awake()
     {
-        base.health = 2;
+        base.health = 1;
 
         enemyAnimator.SetFloat("Forward", 0.3f);
         originalAnimatorPosition = enemyAnimator.transform.localPosition;
