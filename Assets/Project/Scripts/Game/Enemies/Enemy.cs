@@ -9,8 +9,10 @@ public class Enemy : MonoBehaviour
     public virtual void Hit() {
         health--;
         if (health <= 0) {
+            EffectManager.Instance.ApplyEffect(transform.position + Vector3.up * 1.0f, EffectManager.Instance.killEffectPrefab);
             Destroy(gameObject);
         } else {
+            EffectManager.Instance.ApplyEffect(transform.position + Vector3.up * 1.0f, EffectManager.Instance.hitEffectPrefab);
         }
     }
 
