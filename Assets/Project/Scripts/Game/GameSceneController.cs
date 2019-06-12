@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSceneController : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameSceneController : MonoBehaviour
     public Text arrowsText;
     public GameObject dungeonPanel;
     public Text dungeonInfoText;
+
+    private float resetTimer = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,12 @@ public class GameSceneController : MonoBehaviour
             {
                 hearts[i].SetActive(false);
             }
+
+            resetTimer -= Time.deltaTime;
+            if (resetTimer <= 0f) {
+                SceneManager.LoadScene("Menu");
+            }
+
             healthText.text = "Health: 000";
             bombsText.text = "Bombs: 000";
             arrowsText.text = "Arrows: 000";

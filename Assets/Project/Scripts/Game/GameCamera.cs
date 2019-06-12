@@ -39,7 +39,18 @@ public class GameCamera : MonoBehaviour
             {
                 Player player = target.GetComponent<Player>();
 
-                Vector3 playerTargetPosition = player.transform.position + Vector3.up * playerFocusHeight + player.model.transform.forward * playerFocusDepth;
+                float playerFocusDepthFinal = playerFocusDepth;
+                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, - playerFocusDepth);
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.transform.GetComponent<Player>() != null)
+                    {
+                        playerFocusDepthFinal = playerFocusDepth / 2;
+                        break;
+                    }
+                }
+
+                Vector3 playerTargetPosition = player.transform.position + Vector3.up * playerFocusHeight + player.model.transform.forward * playerFocusDepthFinal;
                 transform.position = Vector3.Lerp(transform.position, playerTargetPosition, Time.deltaTime * focusSpeed);
                 if (player.JustTeleported)
                 {
